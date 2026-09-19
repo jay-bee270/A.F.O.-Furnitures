@@ -1,10 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useLanguage } from "../../contexts/LanguageContext"
 import { getTranslation } from "../../utils/translations"
 import "./NewArrivals.css"
+import { useCart } from "../../contexts/CartContext"
 
 import sofaset2 from "../../assets/sofaset2.webp"
 import officechair1 from "../../assets/officechair1.avif"
@@ -16,13 +17,21 @@ import cofee from "../../assets/cofee.avif"
 const NewArrivals = () => {
   const { currentLanguage } = useLanguage()
   const t = (key) => getTranslation(currentLanguage, key)
+  const { addItem } = useCart()
 
   const [selectedCategory, setSelectedCategory] = useState("all")
+
+  useEffect(() => {
+    const onShop = (e) => setSelectedCategory(e.detail)
+    window.addEventListener("shop-category", onShop)
+    return () => window.removeEventListener("shop-category", onShop)
+  }, [])
 
   const products = [
     {
       id: 1,
       name: "Modern Sofa Set",
+      price: 450000,
       image: sofaset2,
       category: "living-room",
       badge: t("newArrivals.badges.new"),
@@ -33,6 +42,7 @@ const NewArrivals = () => {
     {
       id: 2,
       name: "Ergonomic Office Chair",
+      price: 85000,
       image: officechair1,
       category: "office",
       badge: t("newArrivals.badges.trending"),
@@ -43,6 +53,7 @@ const NewArrivals = () => {
     {
       id: 3,
       name: "Wooden Dining Table",
+      price: 220000,
       image: woodentable1,
       category: "dining",
       badge: t("newArrivals.badges.popular"),
@@ -53,6 +64,7 @@ const NewArrivals = () => {
     {
       id: 4,
       name: "King Size Bed Frame",
+      price: 300000,
       image: bedroom2,
       category: "bedroom",
       badge: t("newArrivals.badges.new"),
@@ -63,6 +75,7 @@ const NewArrivals = () => {
     {
       id: 5,
       name: "Bookshelf Unit",
+      price: 60000,
       image: bookshelf1,
       category: "office",
       badge: t("newArrivals.badges.featured"),
@@ -73,6 +86,7 @@ const NewArrivals = () => {
     {
       id: 6,
       name: "Coffee Table Set",
+      price: 75000,
       image: cofee,
       category: "living-room",
       badge: t("newArrivals.badges.new"),
@@ -121,8 +135,8 @@ const NewArrivals = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="section-title">{t("newArrivals.title")}</h2>
-          <p className="section-subtitle">{t("newArrivals.subtitle")}</p>
+          <h2 className="section-title">New Arrivals</h2>
+          <p className="section-subtitle">Browse our latest furniture and order online</p>
         </motion.div>
 
         <motion.div
@@ -166,36 +180,10 @@ const NewArrivals = () => {
               <div className="product-image">
                 <img src={product.image || "/placeholder.svg"} alt={product.name} />
                 <span className={`product-badge ${product.badge.toLowerCase()}`}>{product.badge}</span>
-                {product.arAvailable && <span className="ar-badge">🏠 AR</span>}
-                <div className="product-actions">
-                  <motion.button
-                    className="action-btn"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    title="Add to Wishlist"
-                  >
-                    ❤️
-                  </motion.button>
-                  <motion.button
-                    className="action-btn"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    title="Quick View"
-                  >
-                    👁️
-                  </motion.button>
-                  <motion.button
-                    className="action-btn"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    title="Compare"
-                  >
-                    ⚖️
-                  </motion.button>
-                </div>
               </div>
               <div className="product-info">
                 <h3>{product.name}</h3>
+                <p className="product-price">₦{product.price.toLocaleString()}</p>
                 <div className="product-rating">
                   <div className="stars">
                     {[...Array(5)].map((_, i) => (
@@ -208,28 +196,21 @@ const NewArrivals = () => {
                     ({product.reviews} {t("newArrivals.reviews")})
                   </span>
                 </div>
-                <motion.button className="btn product-btn" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  {t("newArrivals.tryAR")}
-                </motion.button>
+                <div className="product-buttons">
+                  <motion.button
+                    className="btn product-btn add-cart-btn"
+                    onClick={() => addItem(product)}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    🛒 Add to Cart
+                  </motion.button>
+                </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        <motion.div
-          className="app-cta"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h3>{t("newArrivals.cta.title")}</h3>
-          <p>{t("newArrivals.cta.subtitle")}</p>
-          <motion.button className="btn app-download-btn" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <span>📱</span>
-            {t("newArrivals.cta.button")}
-          </motion.button>
-        </motion.div>
       </div>
     </section>
   )

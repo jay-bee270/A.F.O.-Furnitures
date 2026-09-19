@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cors": "^2.8.6",
     "crypto-browserify": "^3.12.1",
+    "dotenv": "^18.0.1",
+    "express": "^5.2.1",
     "firebase": "^11.10.0",
     "framer-motion": "^12.19.1",
     "react": "^19.1.0",
@@ -26,5 +29,18 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.2.0",
     "vite": "^5.1.0"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jay-bee270/A.F.O.-Furnitures.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jay-bee270/A.F.O.-Furnitures/issues"
+  },
+  "homepage": "https://github.com/jay-bee270/A.F.O.-Furnitures#readme"
 }

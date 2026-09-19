@@ -19,7 +19,7 @@ const ContactCTA = () => {
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      "Hello! I'm interested in the A.F.O. Furnitures app and would like to know more about your furniture collection and AR features."
+      "Your Enquiry?"
     )
     const whatsappLink = `https://wa.me/2348147355143?text=${message}`
     window.open(whatsappLink, "_blank", "noopener,noreferrer")

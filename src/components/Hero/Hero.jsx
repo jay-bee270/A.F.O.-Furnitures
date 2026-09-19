@@ -3,13 +3,10 @@
 import { motion } from "framer-motion"
 import "./Hero.css"
 import furniture from "../../assets/furniture3.webp"
-import { useLanguage } from "../../contexts/LanguageContext"
-import { getTranslation } from "../../utils/translations"
+
+const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
 
 const Hero = () => {
-  const { currentLanguage } = useLanguage()
-  const t = (key) => getTranslation(currentLanguage, key)
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -42,41 +39,40 @@ const Hero = () => {
       <div className="hero-container">
         <motion.div className="hero-content" variants={containerVariants} initial="hidden" animate="visible">
           <motion.div className="hero-badge" variants={itemVariants}>
-            <span>{t("hero.badge")}</span>
+            <span>🛋️ Shop furniture online</span>
           </motion.div>
 
           <motion.h1 className="hero-title" variants={itemVariants}>
-            {t("hero.title")}
-            <span className="gradient-text">{t("hero.titleGradient")}</span>
+            Shop Quality Furniture <span className="gradient-text">For Every Room</span>
           </motion.h1>
 
           <motion.p className="hero-subtitle" variants={itemVariants}>
-            {t("hero.subtitle")}
+            Browse sofas, beds, dining tables and office furniture, then check out securely online.
           </motion.p>
 
           <motion.div className="hero-buttons" variants={itemVariants}>
-            <button className="btn btn-primary">
-              <span>📱</span>
-              {t("hero.downloadApp")}
+            <button className="btn btn-primary" onClick={() => scrollTo("new-arrivals")}>
+              <span>🛒</span>
+              Shop Now
             </button>
-            <button className="btn btn-outline">
+            <button className="btn btn-outline" onClick={() => scrollTo("categories")}>
               <span>🔍</span>
-              {t("hero.tryAR")}
+              Browse Categories
             </button>
           </motion.div>
 
           <motion.div className="hero-stats" variants={itemVariants}>
             <div className="stat">
-              <h3>50K+</h3>
-              <p>{t("hero.stats.downloads")}</p>
+              <h3>6</h3>
+              <p>Room categories</p>
             </div>
             <div className="stat">
-              <h3>1000+</h3>
-              <p>{t("hero.stats.items")}</p>
+              <h3>Secure</h3>
+              <p>Paystack payments</p>
             </div>
             <div className="stat">
-              <h3>15+</h3>
-              <p>{t("hero.stats.languages")}</p>
+              <h3>24/7</h3>
+              <p>Shop online</p>
             </div>
           </motion.div>
         </motion.div>
@@ -88,19 +84,19 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <div className="image-container">
-            <img src={furniture || "/placeholder.svg"} alt="A.F.O. Furnitures App Interface" className="hero-img" />
+            <img src={furniture || "/placeholder.svg"} alt="A.F.O. Furnitures store" className="hero-img" />
             <div className="floating-card card-1">
-              <div className="card-icon">🏠</div>
+              <div className="card-icon">💳</div>
               <div className="card-content">
-                <h4>AR Preview</h4>
-                <p>See in your space</p>
+                <h4>Secure Checkout</h4>
+                <p>Pay with Paystack</p>
               </div>
             </div>
             <div className="floating-card card-2">
-              <div className="card-icon">⭐</div>
+              <div className="card-icon">🛋️</div>
               <div className="card-content">
-                <h4>4.8 Rating</h4>
-                <p>App Store</p>
+                <h4>New Arrivals</h4>
+                <p>Shop the latest</p>
               </div>
             </div>
           </div>

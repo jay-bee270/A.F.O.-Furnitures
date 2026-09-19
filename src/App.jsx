@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react"
 import "./App.css"
 import { LanguageProvider } from "./contexts/LanguageContext"
+import { CartProvider } from "./contexts/CartContext"
+import CartDrawer from "./components/CartDrawer/CartDrawer"
+import PaymentStatus from "./components/CartDrawer/PaymentStatus"
 import Navbar from "./components/Navbar/Navbar"
 import Hero from "./components/Hero/Hero"
 import Categories from "./components/Categories/Categories"
@@ -62,16 +65,20 @@ function App() {
 
   return (
     <LanguageProvider>
-      <div className={`App ${darkMode ? "dark" : "light"}`}>
-        <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-        <Hero />
-        <Categories />
-        <NewArrivals />
-        <Features />
-        <Testimonials />
-        <Contact />
-        <Footer />
-      </div>
+      <CartProvider>
+        <div className={`App ${darkMode ? "dark" : "light"}`}>
+          <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+          <PaymentStatus />
+          <CartDrawer />
+          <Hero />
+          <Categories />
+          <NewArrivals />
+          <Features />
+          <Testimonials />
+          <Contact />
+          <Footer />
+        </div>
+      </CartProvider>
     </LanguageProvider>
   )
 }
